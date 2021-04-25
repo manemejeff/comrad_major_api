@@ -6,10 +6,23 @@ from interrogations.models import Interrogation
 
 
 class Question(models.Model):
+    ONE = 1
+    MANY = 2
+    TEXT = 3
+    TYPE_CHOICES = [
+        (ONE, 'One'),
+        (MANY, 'Many'),
+        (TEXT, 'Text'),
+    ]
+
     title = models.CharField(max_length=50)
     text = models.TextField(max_length=200)
     interrogation = models.ForeignKey(Interrogation, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=True)
+    type = models.SmallIntegerField(
+        choices=TYPE_CHOICES,
+        default=ONE
+    )
     # options
 
     def __str__(self):
@@ -17,15 +30,6 @@ class Question(models.Model):
 
     def get_answers(self):
         return self.answer_set.all()
-
-
-class Types(models.Model):
-    pass
-
-
-class Options(models.Model):
-    pass
-    # options_list
 
 
 class Answer(models.Model):

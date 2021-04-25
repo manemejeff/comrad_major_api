@@ -16,3 +16,7 @@ class Interrogation(models.Model):
 
     def get_questions(self):
         return self.question_set.all()
+
+    @property
+    def number_of_questions(self):
+        return self.question_set.count()
