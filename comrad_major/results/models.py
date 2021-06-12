@@ -1,6 +1,6 @@
 from django.db import models
 from interrogations.models import Interrogation
-from questions.models import Answer
+from questions.models import OptionAnswer, TextAnswer
 from django.contrib.auth.models import User
 
 
@@ -8,10 +8,17 @@ from django.contrib.auth.models import User
 
 class Result(models.Model):
     interrogation = models.ForeignKey(Interrogation, on_delete=models.CASCADE)
-    chosen_answer = models.ManyToManyField(Answer)
-    written_answer = models.TextField(
-        max_length=1000,
+    chosen_answer = models.ForeignKey(
+        OptionAnswer,
+        on_delete=models.CASCADE,
         blank=True,
+        default=None
+        )
+    written_answer = models.ForeignKey(
+        TextAnswer,
+        on_delete=models.CASCADE,
+        blank=True,
+        default=None
     )
     user_id = models.BigIntegerField(default=0)
 

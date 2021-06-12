@@ -32,15 +32,20 @@ class Question(models.Model):
         return self.answer_set.all()
 
 
-class Answer(models.Model):
+class OptionAnswer(models.Model):
     text = models.CharField(max_length=200)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Question: {self.question.text}, answer: {self.text}"
-    # interrogation_name
-    # question
-    # chosen_options
-    # answer_text
-    # user
+
+
+class TextAnswer(models.Model):
+    text = models.TextField(max_length=500)
+    question = models.OneToOneField(Question, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Question: {self.question.text}, answer: {self.text}"
+
