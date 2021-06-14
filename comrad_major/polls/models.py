@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+
 # Create your models here.
 
 class PollQuestion(models.Model):
@@ -15,6 +16,7 @@ class PollQuestion(models.Model):
 
     def __str__(self):
         return self.question_text
+
 
 class PollChoice(models.Model):
     question = models.ForeignKey(PollQuestion, on_delete=models.CASCADE)
